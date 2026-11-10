@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Resolucao_Padrao__c</fullName>
+    <description>Texto gravado nos casos quando o fechamento em lote é feito a partir do problema.</description>
+    <externalId>false</externalId>
+    <label>Resolução padrão</label>
+    <length>32768</length>
+    <type>LongTextArea</type>
+    <visibleLines>5</visibleLines>
+</CustomField>

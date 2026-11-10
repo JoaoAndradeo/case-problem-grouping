@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Fechado_Por_Problema__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Marcado quando o caso foi fechado pelo fechamento em lote do problema.</description>
+    <externalId>false</externalId>
+    <label>Fechado pelo problema</label>
+    <type>Checkbox</type>
+</CustomField>
