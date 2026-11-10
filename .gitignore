@@ -1,0 +1,11 @@
+.sf/
+.sfdx/
+.localdevserver/
+node_modules/
+coverage/
+.pmdCache/
+.eslintcache
+*.log
+.DS_Store
+Thumbs.db
+.env

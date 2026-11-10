@@ -1,0 +1,4 @@
+# Arquivos que não devem ser enviados para a org
+**/__tests__/**
+**/jsconfig.json
+**/.eslintcache

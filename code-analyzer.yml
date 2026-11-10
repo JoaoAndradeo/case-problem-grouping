@@ -1,0 +1,10 @@
+# Configuração do Code Analyzer.
+# A seleção de regras é feita no comando, não aqui:
+#   sf code-analyzer run --rule-selector Recommended --target force-app
+engines:
+  pmd:
+    disable_engine: false
+  cpd:
+    disable_engine: false
+  sfge:
+    disable_engine: false

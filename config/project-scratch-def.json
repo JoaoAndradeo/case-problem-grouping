@@ -1,0 +1,8 @@
+{
+  "orgName": "Agrupamento de Casos por Problema",
+  "edition": "Developer",
+  "features": ["ServiceCloud"],
+  "settings": {
+    "lightningExperienceSettings": { "enableS1DesktopEnabled": true }
+  }
+}
