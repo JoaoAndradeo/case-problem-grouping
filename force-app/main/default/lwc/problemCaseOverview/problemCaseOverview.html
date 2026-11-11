@@ -1,0 +1,105 @@
+<template>
+    <lightning-card title="Casos do problema" icon-name="standard:case">
+        <div slot="actions">
+            <lightning-button-group>
+                <lightning-button label="Vincular casos" onclick={openSearch} disabled={isBusy}></lightning-button>
+                <template lwc:if={showCloseButton}>
+                    <lightning-button
+                        variant="destructive"
+                        label={closeLabel}
+                        onclick={confirmClose}
+                        disabled={isBusy}
+                    ></lightning-button>
+                </template>
+            </lightning-button-group>
+        </div>
+
+        <template lwc:if={isBusy}>
+            <lightning-spinner alternative-text="Carregando" size="small"></lightning-spinner>
+        </template>
+
+        <template lwc:if={errorMessage}>
+            <div class="slds-p-horizontal_medium">
+                <div class="slds-notify slds-notify_alert slds-alert_error" role="alert">
+                    <span class="error-message">{errorMessage}</span>
+                </div>
+            </div>
+        </template>
+
+        <template lwc:if={overview}>
+            <div class="slds-grid slds-wrap slds-p-horizontal_medium slds-p-bottom_small stats">
+                <template for:each={stats} for:item="stat">
+                    <div key={stat.key} class="slds-col slds-size_1-of-2 slds-medium-size_1-of-4 slds-p-around_xx-small">
+                        <div class="slds-box slds-box_small slds-text-align_center">
+                            <p class="slds-text-heading_large stat-value" data-stat={stat.key}>{stat.value}</p>
+                            <p class="slds-text-title">{stat.label}</p>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <template lwc:if={hasCases}>
+                <lightning-datatable
+                    key-field="caseId"
+                    data={overview.cases}
+                    columns={columns}
+                    hide-checkbox-column
+                    class="linked-cases"
+                ></lightning-datatable>
+            </template>
+            <template lwc:else>
+                <p class="slds-p-horizontal_medium slds-text-color_weak empty-message">
+                    Nenhum caso vinculado. Use "Vincular casos" para agrupar casos abertos neste problema.
+                </p>
+            </template>
+        </template>
+    </lightning-card>
+
+    <template lwc:if={isSearchOpen}>
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="search-title" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning-button-icon
+                        icon-name="utility:close"
+                        alternative-text="Fechar"
+                        class="slds-button slds-button_icon slds-modal__close"
+                        onclick={closeSearch}
+                    ></lightning-button-icon>
+                    <h2 id="search-title" class="slds-modal__title">Vincular casos abertos</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <lightning-input
+                        type="search"
+                        label="Assunto do caso (mínimo 3 letras)"
+                        value={searchTerm}
+                        onchange={handleTermChange}
+                        oncommit={runSearch}
+                    ></lightning-input>
+                    <template lwc:if={hasSearchResults}>
+                        <lightning-datatable
+                            key-field="caseId"
+                            data={searchResults}
+                            columns={searchColumns}
+                            onrowselection={handleSelection}
+                            class="search-results slds-m-top_small"
+                        ></lightning-datatable>
+                    </template>
+                    <template lwc:elseif={hasSearched}>
+                        <p class="slds-m-top_small slds-text-color_weak no-results">Nenhum caso aberto encontrado com esse assunto.</p>
+                    </template>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button label="Cancelar" onclick={closeSearch}></lightning-button>
+                    <lightning-button
+                        variant="brand"
+                        label={linkLabel}
+                        onclick={linkSelected}
+                        disabled={cannotLink}
+                        class="slds-m-left_x-small link-button"
+                    ></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>
